@@ -2,7 +2,8 @@
 import { resolve } from "path";
 export default defineNuxtConfig({
   alias: {
-    "@": resolve(__dirname, "/"),
+    // "@": resolve(__dirname, "/"),
+    assets: "/<rootdir>/assets",
   },
   css: ["~/assets/main.scss", "tailwindcss/tailwind.css"],
   postcss: {
