@@ -1,10 +1,9 @@
-<script setup lang="ts">
-import { useCounterStore } from "~/stores/myStore";
-const store = useCounterStore();
+<script setup>
+const respone = await $fetch("/api/hello");
 
-console.log(store);
+console.log(respone);
 </script>
 
 <template>
-  <div>hello</div>
+  <div><ContentDoc /></div>
 </template>
