@@ -1,7 +1,10 @@
-<script setup></script>
+<script setup lang="ts">
+import { useCounterStore } from "~/stores/myStore";
+const store = useCounterStore();
+
+console.log(store);
+</script>
 
 <template>
-  <div class="Main">
-    <ContentDoc />
-  </div>
+  <div>hello</div>
 </template>
