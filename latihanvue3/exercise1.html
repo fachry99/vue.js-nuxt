@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>random film</title>
+  </head>
+  <body>
+    <div id="app">
+      <p v-if="filmList.length === 0">theres is no random_film</p>
+      <ul v-else-if="filmList.length % 2 === 0">
+        <li v-for="film in filmList">{{ film.genre }}</li>
+      </ul>
+      <p v-else>odd: {{ filmList.length }}</p>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data: () => ({
+          filmList: [
+            { genre: "action" },
+            { genre: "fun" },
+            { genre: "drama" },
+            { genre: "comedy" },
+          ],
+        }),
+      }).mount("#app");
+    </script>
+  </body>
+</html>

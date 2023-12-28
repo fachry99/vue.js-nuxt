@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>latiahn from forend master</title>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <div id="app">
+      <p v-if="message.length % 2 === 0">Even: {{ message.toUpperCase() }}</p>
+      <p v-else>odd: {{ message.toLowerCase() }}</p>
+      <ul>
+        <li v-for="item in listofitems">{{ item }}</li>
+      </ul>
+      <hr />
+      <h1>Counter</h1>
+      <p data-increment-by="incrementAmount">{{ count }}</p>
+      <button @click="increment(10, $event)">Increment</button>
+      <h1>{{incrementAmount}}</h1>
+      <div>
+        <label for="incrementAmount">increment by:</label>
+        <input type="number" v-model.number="incrementAmount" />
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp } = Vue;
+
+      const app = createApp({
+        data() {
+          return {
+            count: 10,
+            incrementAmount: 5,
+            message: "Hello Vue!",
+            listofitems: ["item1", "item2", "item3"],
+          };
+        },
+        methods: {
+          increment(newAmount, event) {
+            console.log(event);
+            console.log(newAmount);
+            this.count += Number(this.incrementAmount);
+          },
+        },
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>
