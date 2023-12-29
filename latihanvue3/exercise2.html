@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>exercise 2</h1>
+    <div id="app">
+      <p v-if="characterList.length === 0">there no character</p>
+      <ul v-else-if="characterList.length % 2 === 0">
+        <li v-for="character in characterList">
+          {{character.name}}
+          <button @click="favoriteCharacter(character)">favorite✨</button>
+        </li>
+      </ul>
+
+      <!-- favorite character -->
+      <h3>favorite Character</h3>
+      <p v-if="favoriteList.length === 0">there no favorite character</p>
+      <ul v-if="favoriteList.length > 0">
+        <li v-for="character in favoriteList">{{character.name}}</li>
+      </ul>
+      <p v-else>no favorite character</p>
+
+      <!-- //New character -->
+      <h3>New Character</h3>
+      <p>{{newCharacter}}</p>
+      <label for="characterName">name </label>
+      <input
+        type="text"
+        v-model="newCharacter.name"
+        @keyup.enter="addNewCharacter"
+      />
+
+      <p>
+        <span v-for="(character, index) in characterList"
+          >{{character.name}}{{index === characterList.length - 1? "" : ", "}}
+        </span>
+      </p>
+      <p v-else>there are odd character</p>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data: () => ({
+          newCharacter: {
+            name: "",
+          },
+          characterList: [
+            { name: "naruto" },
+            { name: "sasuke" },
+            { name: "sakura" },
+            { name: "kakashi" },
+          ],
+          favoriteList: [],
+        }),
+        methods: {
+          addNewCharacter() {
+            this.characterList.push(this.newCharacter);
+            this.newCharacter = {
+              name: "",
+            };
+          },
+          favoriteCharacter(character) {
+            this.favoriteList.push(character);
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
