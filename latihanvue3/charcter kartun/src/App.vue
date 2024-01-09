@@ -1,5 +1,9 @@
 <script>
+import BenderStatistics from './components/BenderStatistics.vue'
 export default {
+  components: {
+    BenderStatistics
+  },
   data: () => ({
     newCharacter: {
       name: '',
@@ -14,21 +18,6 @@ export default {
     ],
     favoriteList: []
   }),
-  computed: {
-    benderStatistic() {
-      const statistic = {}
-      this.characterList.forEach((character) => {
-        character.element.forEach((element) => {
-          if (statistic[element]) {
-            statistic[element]++
-          } else {
-            statistic[element] = 1
-          }
-        })
-      })
-      return statistic
-    }
-  },
   methods: {
     addNewCharacter() {
       this.characterList.push(this.newCharacter)
@@ -46,17 +35,14 @@ export default {
 
 <template>
   <h1>exercise 3</h1>
+  <BenderStatistics :characterList="characterList" />
+
+  <!-- character list -->
+  <h3>character list</h3>
   <ul>
-    <li>{{ benderStatistic }}</li>
-    <li v-for="(stat, type) in benderStatistic" :key="`bender-${stat}-${type}`">
-      {{ type }}: {{ stat }}
-    </li>
-  </ul>
-  <p v-if="characterList.length === 0">there no character</p>
-  <ul v-else-if="characterList.length % 2 === 0">
-    <li v-for="(character, index) in characterList" :key="`even-character-${index}`">
+    <li v-for="(character, index) in characterList" :key="`character-${index}`">
       {{ character.name }}
-      <button @click="favoriteCharacter(character)">favorite✨</button>
+      <button @click="favoriteCharacter(character)">favorite</button>
     </li>
   </ul>
 
