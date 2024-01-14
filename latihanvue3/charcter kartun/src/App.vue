@@ -1,7 +1,11 @@
 <script>
+import favoriteCharacter from './components/favoriteCharacter.vue'
+import characterCard from './components/characterCard.vue'
 import BenderStatistics from './components/BenderStatistics.vue'
 export default {
   components: {
+    favoriteCharacter,
+    characterCard,
     BenderStatistics
   },
   data: () => ({
@@ -15,8 +19,7 @@ export default {
       { name: 'sakura', element: ['water'] },
       { name: 'kakashi', element: ['lightning'] },
       { name: 'gaara', element: ['earth'] }
-    ],
-    favoriteList: []
+    ]
   }),
   methods: {
     addNewCharacter() {
@@ -26,8 +29,8 @@ export default {
         element: []
       }
     },
-    favoriteCharacter(character) {
-      this.favoriteList.push(character)
+    addFavoriteCharacter(payload) {
+      this.favoriteList.push(payload)
     }
   }
 }
@@ -41,21 +44,12 @@ export default {
   <h3>character list</h3>
   <ul>
     <li v-for="(character, index) in characterList" :key="`character-${index}`">
-      {{ character.name }}
-      <button @click="favoriteCharacter(character)">favorite</button>
+      <character-card :character="character" @favorite-character="addFavoriteCharacter" />
     </li>
   </ul>
 
   <!-- favorite character -->
-  <h3>favorite Character</h3>
-  <p v-if="favoriteList.length === 0">there no favorite character</p>
-  <ul v-if="favoriteList.length > 0">
-    <li v-for="(character, index) in favoriteList" :key="`odd-character-${index}`">
-      {{ character.name }}
-    </li>
-  </ul>
-  <p v-else>no favorite character</p>
-
+  <favorite-character />
   <!-- new character -->
   <h3>New Character</h3>
   <p>{{ newCharacter }}</p>
