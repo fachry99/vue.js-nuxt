@@ -11,7 +11,7 @@ export default {
 <template>
   <h1>New App</h1>
   <Suspense>
-    <pokedex />
+    <pokedex region="hoen" />
 
     <template #fallback>
       <p>Loading...</p>
