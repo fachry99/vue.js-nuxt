@@ -1,20 +1,9 @@
-<script>
-import pokedex from './components/pokedex.vue'
-
-export default {
-  components: {
-    pokedex
-  }
-}
+<script setup>
+import useCard from './components/use-card.vue'
+import baseCounter from './components/baseCounter.vue'
 </script>
 
 <template>
-  <h1>New App</h1>
-  <Suspense>
-    <pokedex region="hoen" />
-
-    <template #fallback>
-      <p>Loading...</p>
-    </template>
-  </Suspense>
+  <baseCounter />
+  <useCard :user="{ name: 'fahri', gender: 'men' }" />
 </template>
