@@ -2,7 +2,7 @@
 export default {
   props: {
     left: Boolean,
-    default: true
+    default: false
   }
 }
 </script>

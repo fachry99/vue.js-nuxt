@@ -1,9 +1,12 @@
 <script>
-import { newCount } from '../composables/countStore.js'
+import { useCount } from '../composables/countStore'
+
 export default {
   setup() {
+    const countStore = useCount()
+
     return {
-      newCount
+      countStore
     }
   },
   props: {
@@ -12,12 +15,29 @@ export default {
       required: true
     }
   },
-  emits: ['change-name']
+  emits: ['change-name'],
+  methods: {
+    tellParentChangeName() {
+      this.$emit('change-name')
+    }
+  }
 }
 </script>
+
 <template>
-  <p>User: {{ user.name }}</p>
-  <p>newCount: {{ newCount }}</p>
-  <p>gender: {{ user.gender }}</p>
-  <button @click="$emit('change-name')">Change Name</button>
+  <h1>User: {{ user.name }}</h1>
+  <h2>New Counter</h2>
+  <p>Global Count: {{ countStore.globalCount }}</p>
+  <p>Local Count: {{ countStore.localCount }}</p>
+  <button :class="$style.button" @click="countStore.globalCount += 10">Global</button>
+  <button :class="$style.button" @click="countStore.incrementLocalCount">Local</button>
+  <hr />
+  <p>Favorite Food: {{ user.food }}</p>
+  <button :class="$style.button" @click="tellParentChangeName">Change Name</button>
 </template>
+
+<style module>
+.button {
+  border: 10px solid green;
+}
+</style>

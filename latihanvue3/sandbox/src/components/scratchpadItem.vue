@@ -1,59 +1,93 @@
 <script>
-import baseLayout from './components/base-layout.vue'
-import baseButton from './components/baseButton.vue'
-import baseCounter from './components/baseCounter.vue'
-import useCard from './components/use-card.vue'
+import UserCard from './components/user-card.vue'
+import BaseCounter from './components/base-counter.vue'
+import BaseButton from './components/base-button.vue'
+import BaseLayout from './components/base-layout.vue'
+
 export default {
   components: {
-    baseLayout,
-    baseButton,
-    baseCounter,
-    useCard
+    BaseButton,
+    BaseCounter,
+    BaseLayout,
+    UserCard
   },
   data() {
     return {
       message: 'Hello it works',
-      listofitems: ['item1', 'item2', 'item3'],
+      listOfNumbers: [
+        {
+          name: 1,
+          id: '6a887cd2-f0bf-4321-b192-92016f82a883',
+          list: [1, 2, 3]
+        },
+        {
+          name: 2,
+          id: '8d14d90b-2d47-473e-8293-d5c324111d0d',
+          list: [1, 2, 3]
+        },
+        {
+          name: 3,
+          id: 'cd806d65-2309-4625-9104-dcd636cd79b5',
+          list: [1, 2, 3]
+        },
+        {
+          name: 4,
+          id: '00c939cd-fbf4-46d0-8e61-0bc2ce8a5332',
+          list: [1, 2, 3]
+        },
+        {
+          name: 5,
+          id: '295a8170-59c1-4462-9de1-3c9cd41cedab',
+          list: [1, 2, 3]
+        }
+      ],
       userData: {
-        name: 'John Doe',
-        gender: 'male',
-        favoriteColor: 'blue',
-        favotiteNumber: [10, 9]
+        name: 'Ben',
+        preferredFramework: 'vue',
+        favoriteFood: 'sushi',
+        favoriteNumbers: [8, 10, 12]
       }
     }
   },
   computed: {
-    refineUserData() {
+    refinedUserData() {
       return {
         name: this.userData.name,
-        gender: this.userData.gender
+        food: this.userData.favoriteFood
       }
     }
   },
   methods: {
     changeName() {
-      this.userData.name = 'fachry'
+      this.userData.name = 'Charlie'
     }
   }
 }
 </script>
 
 <template>
-  <baseLayout>
-    <template #sidebar>Aside</template>
-    <template #main>
-      <useCard :user="refineUserData" @change-name="changeName" />
+  <BaseLayout>
+    <template v-slot:sidebar> Aside </template>
+    <template v-slot:main>
+      <UserCard :user="refinedUserData" @change-name="changeName" />
     </template>
-    <template #footer>
-      <baseCounter />
+    <template v-slot:footer>
+      <BaseCounter />
     </template>
-  </baseLayout>
-  <baseButton :left="false"></baseButton>
-  <baseButton :left="true"></baseButton>
+  </BaseLayout>
+  <BaseButton :left="true"></BaseButton>
+
   <hr />
   <p v-if="message.length % 2 === 0">Even: {{ message.toUpperCase() }}</p>
-  <p v-else>odd: {{ message.toLowerCase() }}</p>
-  <ul v-for="item in listofitems" :key="item">
-    <li>{{ item }}</li>
+  <p v-else>Odd: {{ message }}</p>
+  <ul v-for="(item, index) in listOfNumbers" :key="`item-${index}`">
+    <li>
+      {{ item.id }}
+      <ul>
+        <li v-for="(number, index) in item.list" :key="`number-${index}`">
+          {{ number }}
+        </li>
+      </ul>
+    </li>
   </ul>
 </template>

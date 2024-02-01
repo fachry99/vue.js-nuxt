@@ -1,54 +1,56 @@
 <script>
-import { newCount } from '../composables/countStore.js'
+import { useCount } from '../composables/countStore'
+
 export default {
   setup() {
+    const countStore = useCount()
+
     return {
-      newCount
+      countStore
     }
   },
   data: () => ({
     count: 10,
-    CounterTittle: 'Counter standard',
-    incrementAmount: 5
+    counterTitle: 'Counter Standard',
+    incrementAmount: 8
   }),
   computed: {
-    displayTittle() {
+    displayTitle() {
       if (this.count > 20) {
-        return 'counter - greater than 20'
+        return 'Counter Standard - Very Long'
       } else {
-        return 'counter - less than 20'
+        return 'Counter Standard'
       }
     },
-    optimizedIncrement() {
-      return this.displayTittle.length * this.incrementAmount
+    optimizedIncrementAmount() {
+      return this.displayTitle.length * this.incrementAmount
     }
   },
   methods: {
     incrementCount(newAmount, event) {
-      console.log(event)
       console.log(newAmount)
-      this.count += this.optimizedIncrement
-      this.newCount += 10
-    }
-  },
-  watch: {
-    count(newValue) {
-      if (newValue > 20) {
-        this.CounterTittle += 'greater than 20'
-      }
+      console.log(event)
+      this.count += this.optimizedIncrementAmount
+      // this.newCount += 10;
     }
   }
 }
 </script>
 
 <template>
-  <h1>{{ displayTittle }}</h1>
-  <h3>{{ newCount }}</h3>
+  <h1>{{ displayTitle }}</h1>
+  <h2>New Counter</h2>
+  <p>Global Count: {{ countStore.globalCount }}</p>
+  <p>Local Count: {{ countStore.localCount }}</p>
+  <button class="button" @click="countStore.incrementGlobalCount">Global</button>
+  <button class="button" @click="countStore.incrementLocalCount">Local</button>
+  <hr />
   <p :data-increment-by="incrementAmount">{{ count }}</p>
-  <button @click="incrementCount">Increment</button>
+  <button class="button" @click="incrementCount">Increment Count</button>
   <h1>{{ incrementAmount }}</h1>
+  <p>{{ optimizedIncrementAmount }}</p>
   <div>
-    <label for="incrementAmount">increment by:</label>
-    <input type="number" v-model.number="incrementAmount" />
+    <label for="incrementAmount">Increment by:</label>
+    <input type="text" v-model="incrementAmount" />
   </div>
 </template>
