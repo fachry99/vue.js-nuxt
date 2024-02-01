@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps } from 'vue'
-import userCard from './userCard.vue'
-import {userList} from "../composables/useUserStore"
+import userCard from '../components/userCard.vue'
+import { userList } from '../composables/useUserStore'
 
 defineProps({
   title: {
@@ -9,8 +9,6 @@ defineProps({
     default: 'Users'
   }
 })
-
-
 
 async function getUser() {
   const response = await fetch('https://jsonplaceholder.typicode.com/users').then((res) =>

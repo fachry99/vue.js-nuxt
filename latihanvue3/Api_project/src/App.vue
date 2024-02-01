@@ -1,47 +1,14 @@
-<script>
-import userPage from './components/userPage.vue'
-import homePage from './components/homePage.vue'
-import loginPage from './components/loginPage.vue'
-
-export default {
-  components: {
-    userPage,
-    homePage,
-    loginPage
-  },
-  data: () => ({
-    currentPage: 'user'
-  }),
-  computed: {
-    renderPage() {
-      return this.currentPage + 'Page'
-    }
-  },
-  methods: {
-    showHomePage() {
-      this.currentPage = 'home'
-    },
-    showLoginPage() {
-      this.currentPage = 'login'
-    },
-    showUserPage() {
-      this.currentPage = 'user'
-    }
-  }
-}
-</script>
-
 <template>
   <header class="header">
     <h1>Project 3</h1>
     <nav class="nav">
-      <a href="#" @click.prevent="showHomePage">Home</a>
-      <a href="#" @click.prevent="showLoginPage">Login</a>
-      <a href="" @click.prevent="showUserPage">User</a>
+      <router-link to="/">Home</router-link>
+      <router-link to="/login">Login</router-link>
+      <router-link to="/user">User</router-link>
     </nav>
   </header>
   <Suspense>
-    <component :is="renderPage" :key="renderPage" />
+    <router-view />
 
     <template v-slot:fallback> Data is loading... </template>
   </Suspense>
