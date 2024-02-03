@@ -16,6 +16,10 @@ const router = createRouter({
     {
       path: '/user',
       component: () => import('@/views/userPage.vue')
+    },
+    {
+      path: '/user/:name',
+      component: () => import('@/views/userDetailPage.vue')
     }
   ],
   history: createWebHashHistory()
